@@ -1,4 +1,10 @@
 This is your new Play application
 =================================
 
-This file will be packaged with your application, when using `activator dist`.
+Example project how to use playframework 2.4 and spring-data-elasticsearch.
+
+The playframework decided to do strange things in 2.4 and therefore google guice was necessary to use this.
+
+May be you want to use my plugin and hide all this strangeness ;-)
+
+See: https://github.com/unterstein/play-elasticplugin
