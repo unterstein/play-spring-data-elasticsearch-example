@@ -4,6 +4,7 @@ import org.elasticsearch.client.Client
 import org.elasticsearch.common.settings.{ImmutableSettings, Settings}
 import org.elasticsearch.node.Node
 import org.elasticsearch.node.NodeBuilder._
+import org.springframework.beans.factory.DisposableBean
 import org.springframework.context.annotation.{ComponentScan, Bean, Configuration}
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories
@@ -14,7 +15,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @Configuration
 @EnableElasticsearchRepositories(basePackages = Array("models"))
 @ComponentScan(Array("models", "controllers"))
-class ElasticSearchConfiguration {
+class ElasticSearchConfiguration extends DisposableBean {
 
   private val elasticsearchSettings: Settings = ImmutableSettings.settingsBuilder.put("path.home", "target/elastic").put("http.port", 8200).build
   private val node: Node = nodeBuilder.local(true).settings(elasticsearchSettings).node
@@ -27,7 +28,7 @@ class ElasticSearchConfiguration {
   @Bean def elasticSearchClient: Client = client
 
   @throws(classOf[Exception])
-  def destroy {
+  override def destroy {
     node.close()
     client.close()
   }
