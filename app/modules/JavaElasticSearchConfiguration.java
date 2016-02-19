@@ -21,7 +21,7 @@ import org.elasticsearch.node.NodeBuilder;
 @ComponentScan({"models", "controllers"})
 public class JavaElasticSearchConfiguration implements DisposableBean {
 
-  private Settings elasticsearchSettings = ImmutableSettings.settingsBuilder().put("path.home", "target/elastic").put("http.port", 8200).build()
+  private Settings elasticsearchSettings = ImmutableSettings.settingsBuilder().put("path.home", "target/elastic").put("http.port", 8200).build();
   private Node node = NodeBuilder.nodeBuilder().local(true).settings(elasticsearchSettings).node();
   private Client client = node.client();
 
